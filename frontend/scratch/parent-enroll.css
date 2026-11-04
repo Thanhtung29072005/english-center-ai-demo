@@ -1,0 +1,404 @@
+
+/* ═══════════════════════════════════════════════════════════════
+   PARENT ENROLLMENT PAGE STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.parent-enroll-page-wrapper {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ─── Page Header ─── */
+.parent-enroll-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.parent-enroll-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.parent-enroll-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+.parent-enroll-icon-wrapper i {
+    font-size: 24px;
+    color: white;
+}
+
+.parent-enroll-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.parent-enroll-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0.25rem 0 0 0;
+}
+
+.parent-enroll-refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    color: #475569;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.parent-enroll-refresh-btn:hover {
+    background: #f8fafc;
+    border-color: #8b5cf6;
+    color: #8b5cf6;
+    transform: translateY(-1px);
+}
+
+.parent-enroll-refresh-btn i {
+    font-size: 14px;
+}
+
+/* ─── Statistics Cards ─── */
+.parent-enroll-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.parent-enroll-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+}
+
+.parent-enroll-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.parent-enroll-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.parent-enroll-stat-pending .parent-enroll-stat-icon {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.parent-enroll-stat-approved .parent-enroll-stat-icon {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.parent-enroll-stat-rejected .parent-enroll-stat-icon {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.parent-enroll-stat-total .parent-enroll-stat-icon {
+    background: #ddd6fe;
+    color: #8b5cf6;
+}
+
+.parent-enroll-stat-content {
+    flex: 1;
+}
+
+.parent-enroll-stat-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.parent-enroll-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ─── Filter Tabs ─── */
+.parent-enroll-filter-section {
+    margin-bottom: 1.5rem;
+}
+
+.parent-enroll-tabs {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.parent-enroll-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    color: #64748b;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.parent-enroll-tab:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.parent-enroll-tab.active {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border-color: #8b5cf6;
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.parent-enroll-tab i {
+    font-size: 14px;
+}
+
+/* ─── Table Card ─── */
+.parent-enroll-table-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.parent-enroll-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.parent-enroll-table thead {
+    background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+}
+
+.parent-enroll-table thead th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.parent-enroll-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
+}
+
+.parent-enroll-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.parent-enroll-table tbody td {
+    padding: 1rem 1.25rem;
+    color: #334155;
+    font-size: 0.9rem;
+}
+
+/* ─── ID Chip ─── */
+.parent-enroll-id-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: linear-gradient(135deg, #ddd6fe 0%, #e9d5ff 100%);
+    color: #7c3aed;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* ─── Student Info ─── */
+.parent-enroll-student-name {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.parent-enroll-student-dob {
+    font-size: 0.8rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* ─── Class Pill ─── */
+.parent-enroll-class-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* ─── Branch Text ─── */
+.parent-enroll-branch-text {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+/* ─── Fee Text ─── */
+.parent-enroll-fee-text {
+    font-weight: 600;
+    color: #059669;
+    font-size: 0.95rem;
+}
+
+/* ─── Status Badges ─── */
+.parent-enroll-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.parent-enroll-badge-pending {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #d97706;
+}
+
+.parent-enroll-badge-approved {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #059669;
+}
+
+.parent-enroll-badge-rejected {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #dc2626;
+}
+
+.parent-enroll-badge-default {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.parent-enroll-badge i {
+    font-size: 12px;
+}
+
+/* ─── Date Text ─── */
+.parent-enroll-date-text {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+/* ─── Loading & Empty States ─── */
+.parent-enroll-loading-state,
+.parent-enroll-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.parent-enroll-loading-state {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.parent-enroll-empty-icon {
+    font-size: 3rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+}
+
+.parent-enroll-empty-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.5rem;
+}
+
+.parent-enroll-empty-sub {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .parent-enroll-page-wrapper {
+        padding: 1rem;
+    }
+
+    .parent-enroll-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .parent-enroll-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .parent-enroll-tabs {
+        width: 100%;
+    }
+
+    .parent-enroll-tab {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .parent-enroll-table {
+        font-size: 0.85rem;
+    }
+
+    .parent-enroll-table thead th,
+    .parent-enroll-table tbody td {
+        padding: 0.75rem;
+    }
+}

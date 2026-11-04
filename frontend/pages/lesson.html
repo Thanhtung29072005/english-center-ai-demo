@@ -1,0 +1,304 @@
+<div class="content edu-page edu-lesson-page">
+    <section class="edu-hero lesson-hero">
+        <div>
+            <span class="edu-eyebrow"><i class="fa-solid fa-calendar-days"></i> Quản lý buổi học</span>
+            <h2>Buổi học</h2>
+            <p>Lên lịch, theo dõi giáo viên, nội dung học và từng buổi trong lớp.</p>
+        </div>
+        <button class="btn edu-create-btn" data-bs-toggle="modal" data-bs-target="#createLessonModal">
+            <i class="fa-solid fa-plus"></i> Tạo buổi học mới
+        </button>
+    </section>
+
+    <section class="edu-filter-card lesson-filter-modern">
+        <div class="edu-section-title">
+            <span>Bộ lọc</span>
+            <h5>Tìm kiếm buổi học</h5>
+        </div>
+        <div class="row g-3 align-items-end">
+            <div class="col-lg-3 col-md-6">
+                <label class="edu-label">Lớp học</label>
+                <select id="lesson-filter-class" class="form-select edu-soft-input">
+                    <option value="">-- Tất cả lớp --</option>
+                </select>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <label class="edu-label">Tìm kiếm</label>
+                <div class="edu-search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="lesson-filter-search" class="form-control" placeholder="Tên lớp, Giáo viên, Số buổi...">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Sắp xếp</label>
+                <select id="lesson-filter-sort" class="form-select edu-soft-input">
+                    <option value="newest">Ngày học (mới nhất)</option>
+                    <option value="oldest">Ngày học (cũ nhất)</option>
+                    <option value="az">Tên lớp (A-Z)</option>
+                    <option value="za">Tên lớp (Z-A)</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Trang</label>
+                <select id="lesson-filter-page-size" class="form-select edu-soft-input">
+                    <option value="6">6 mục/trang</option>
+                    <option value="12" selected>12 mục/trang</option>
+                    <option value="24">24 mục/trang</option>
+                    <option value="9999">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-lg-1 col-md-6">
+                <button id="lesson-btn-reset-filter" class="btn edu-reset-btn w-100" title="Đặt lại">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="edu-list-toolbar">
+        <span id="lesson-count-text">Đang tải...</span>
+        <div id="lesson-pagination-controls" class="d-flex align-items-center gap-2"></div>
+    </section>
+
+    <div class="row edu-grid" id="lesson-list-container"></div>
+</div>
+
+<!-- Modal Xác nhận Xóa -->
+<div class="modal fade" id="deleteLessonModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 20px 24px 16px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Xóa buổi học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px;">
+                <p id="deleteLessonMessage" class="mb-0" style="color: #4a5568; font-size: 15px; line-height: 1.6;">
+                    Bạn có chắc chắn muốn xóa buổi học này?<br>Hành động này không thể hoàn tác.
+                </p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnConfirmDeleteLesson" class="btn text-white px-4 py-2"
+                    style="border-radius: 8px; background: #e53e3e; font-weight: 500;">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tạo buổi học mới -->
+<div class="modal fade" id="createLessonModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 16px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Tạo buổi học mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
+                <form id="createLessonForm">
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Chọn
+                                lớp học <span class="text-danger">*</span></label>
+                            <select class="form-control" id="newLessonClassId"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                                <option value="" disabled selected>-- Chọn lớp --</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Giáo
+                                viên <span class="text-danger">*</span></label>
+                            <select class="form-control" id="newLessonTeacherId"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                                <option value="" disabled selected>-- Giáo viên --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Ngày
+                                học <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="newLessonDate"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Số buổi
+                                <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="newLessonNumber" min="1" placeholder="VD: 1"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Nội dung
+                            buổi học</label>
+                        <textarea class="form-control" id="newLessonContent" rows="3"
+                            placeholder="Nhập nội dung buổi học..."
+                            style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                    </div>
+
+                    <!-- Từ vựng -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0" style="font-size: 14px; font-weight: 600; color: #1a202c;">Từ
+                                vựng</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('new-vocabulary-list', 'word', 'translation')">+
+                                Thêm</button>
+                        </div>
+                        <div id="new-vocabulary-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;" id="new-vocab-empty">Không
+                                có dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <!-- Bài tập về nhà -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0"
+                                style="font-size: 14px; font-weight: 600; color: #1a202c;">Bài tập về nhà</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('new-homework-list', 'page', 'description')">+ Thêm</button>
+                        </div>
+                        <div id="new-homework-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;" id="new-hw-empty">Không có
+                                dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <!-- Ngữ pháp -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0"
+                                style="font-size: 14px; font-weight: 600; color: #1a202c;">Ngữ pháp</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('new-grammar-list', 'topic', 'description')">+ Thêm</button>
+                        </div>
+                        <div id="new-grammar-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;" id="new-gr-empty">Không có
+                                dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Nhận xét
+                            chung</label>
+                        <textarea class="form-control" id="newLessonGeneralComment" rows="2"
+                            style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #E0E5F2; padding: 16px 24px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2" id="btnSubmitCreateLesson"
+                    style="background-color: #f97316; border-radius: 8px; font-weight: 500;">Tạo mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Sửa buổi học -->
+<div class="modal fade" id="editLessonModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 16px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Sửa buổi học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
+                <form id="editLessonForm">
+                    <input type="hidden" id="editLessonId">
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Chọn
+                                lớp học <span class="text-danger">*</span></label>
+                            <select class="form-control" id="editLessonClassId"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                                <option value="" disabled>-- Chọn lớp --</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Giáo
+                                viên <span class="text-danger">*</span></label>
+                            <select class="form-control" id="editLessonTeacherId"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                                <option value="" disabled>-- Giáo viên --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Ngày
+                                học <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="editLessonDate"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Số
+                                buổi</label>
+                            <input type="number" class="form-control" id="editLessonNumber" min="1"
+                                style="border-radius: 8px; border-color: rgba(123,75,239,0.4); height: 42px;">
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Nội dung
+                            buổi học</label>
+                        <textarea class="form-control" id="editLessonContent" rows="3"
+                            style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                    </div>
+
+                    <!-- Từ vựng -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0" style="font-size: 14px; font-weight: 600; color: #1a202c;">Từ
+                                vựng</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('edit-vocabulary-list', 'word', 'translation')">+
+                                Thêm</button>
+                        </div>
+                        <div id="edit-vocabulary-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;">Không có dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <!-- Bài tập về nhà -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0"
+                                style="font-size: 14px; font-weight: 600; color: #1a202c;">Bài tập về nhà</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('edit-homework-list', 'page', 'description')">+
+                                Thêm</button>
+                        </div>
+                        <div id="edit-homework-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;">Không có dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <!-- Ngữ pháp -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0"
+                                style="font-size: 14px; font-weight: 600; color: #1a202c;">Ngữ pháp</label>
+                            <button type="button" class="btn btn-sm btn-edit-class px-3"
+                                onclick="addLessonListItem('edit-grammar-list', 'topic', 'description')">+ Thêm</button>
+                        </div>
+                        <div id="edit-grammar-list" class="d-flex flex-column gap-2">
+                            <p class="text-muted text-center mb-0" style="font-size: 13px;">Không có dữ liệu</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Nhận xét
+                            chung</label>
+                        <textarea class="form-control" id="editLessonGeneralComment" rows="2"
+                            style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #E0E5F2; padding: 16px 24px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2" id="btnSubmitEditLesson"
+                    style="background-color: #f97316; border-radius: 8px; font-weight: 500;">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>

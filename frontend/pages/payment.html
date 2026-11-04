@@ -1,0 +1,173 @@
+<div class="payment-page-wrapper">
+
+    <!-- Page Header -->
+    <div class="payment-header">
+        <div class="payment-header-left">
+            <div class="payment-icon-wrapper">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <div>
+                <h4 class="payment-title">Thanh Toán Học Phí</h4>
+                <p class="payment-subtitle">Quét mã QR để thanh toán học phí qua ngân hàng</p>
+            </div>
+        </div>
+        <button class="payment-refresh-btn" onclick="initPaymentPage()">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Làm mới</span>
+        </button>
+    </div>
+
+    <!-- Bank Info Banner -->
+    <div class="payment-bank-banner">
+        <div class="payment-bank-left">
+            <div class="payment-bank-logo-wrap">
+                <img src="https://api.vietqr.io/img/MB.png" alt="MB Bank" class="payment-bank-logo" onerror="this.style.display='none'">
+            </div>
+            <div class="payment-bank-info">
+                <div class="payment-bank-name">MB Bank · Ngân hàng Quân đội</div>
+                <div class="payment-bank-account">
+                    <span id="paymentAccountNumber">30802040599999</span>
+                    <button class="payment-copy-btn" onclick="copyAccountNumber()" title="Sao chép số tài khoản">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+                <div class="payment-bank-owner">
+                    <i class="fa-regular fa-user me-1"></i>
+                    <span>TRAN ANH DUC</span>
+                </div>
+            </div>
+        </div>
+        <div class="payment-bank-right">
+            <div class="payment-bank-badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Thanh toán an toàn qua VietQR</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="payment-stats-row">
+        <div class="payment-stat-card payment-stat-blue">
+            <div class="payment-stat-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="payment-stat-body">
+                <div class="payment-stat-label">Tổng đơn đã duyệt</div>
+                <div class="payment-stat-value" id="payStatTotal">0</div>
+            </div>
+        </div>
+        <div class="payment-stat-card payment-stat-green">
+            <div class="payment-stat-icon"><i class="fa-solid fa-coins"></i></div>
+            <div class="payment-stat-body">
+                <div class="payment-stat-label">Tổng học phí</div>
+                <div class="payment-stat-value" id="payStatAmount">0 ₫</div>
+            </div>
+        </div>
+        <div class="payment-stat-card payment-stat-purple">
+            <div class="payment-stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="payment-stat-body">
+                <div class="payment-stat-label">Số học sinh</div>
+                <div class="payment-stat-value" id="payStatStudents">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Title -->
+    <div class="payment-section-title">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Danh sách học phí cần thanh toán</span>
+    </div>
+
+    <!-- Enrollment Cards -->
+    <div id="paymentCardGrid" class="payment-card-grid">
+        <!-- Loading skeleton -->
+        <div class="payment-skeleton-card">
+            <div class="payment-skeleton-line w-60"></div>
+            <div class="payment-skeleton-line w-40"></div>
+            <div class="payment-skeleton-line w-80"></div>
+        </div>
+        <div class="payment-skeleton-card">
+            <div class="payment-skeleton-line w-60"></div>
+            <div class="payment-skeleton-line w-40"></div>
+            <div class="payment-skeleton-line w-80"></div>
+        </div>
+    </div>
+
+    <!-- Empty state (hidden by default) -->
+    <div id="paymentEmptyState" class="payment-empty-state" style="display:none;">
+        <div class="payment-empty-icon"><i class="fa-regular fa-face-smile-beam"></i></div>
+        <div class="payment-empty-title">Không có khoản học phí nào cần thanh toán</div>
+        <div class="payment-empty-sub">Tất cả học phí đã được xử lý hoặc chưa có đơn đăng ký nào được duyệt</div>
+    </div>
+
+</div>
+
+<!-- ===== QR Payment Modal ===== -->
+<div id="paymentQRModal" class="payment-modal-overlay" style="display:none;" onclick="closePaymentModal(event)">
+    <div class="payment-modal-box" id="paymentModalBox">
+        <!-- Modal Header -->
+        <div class="payment-modal-header">
+            <div class="payment-modal-title">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Quét mã QR để thanh toán</span>
+            </div>
+            <button class="payment-modal-close" onclick="closePaymentModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="payment-modal-body">
+            <!-- Class Info -->
+            <div class="payment-modal-info">
+                <div class="payment-modal-class-name" id="modalClassName">—</div>
+                <div class="payment-modal-student" id="modalStudentName">—</div>
+                <div class="payment-modal-branch" id="modalBranchName">—</div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="payment-qr-wrap">
+                <div class="payment-qr-loading" id="qrLoading">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <span>Đang tải mã QR...</span>
+                </div>
+                <img id="paymentQRImage" class="payment-qr-img" src="" alt="QR Code Thanh Toán"
+                    onload="document.getElementById('qrLoading').style.display='none'; this.style.display='block';"
+                    onerror="handleQRError()" style="display:none;">
+            </div>
+
+            <!-- Amount -->
+            <div class="payment-modal-amount-row">
+                <span class="payment-modal-amount-label">Số tiền</span>
+                <span class="payment-modal-amount-value" id="modalAmount">—</span>
+            </div>
+
+            <!-- Transfer Description -->
+            <div class="payment-modal-desc-row">
+                <i class="fa-regular fa-comment-dots"></i>
+                <span>Nội dung: </span>
+                <strong id="modalTransferDesc">—</strong>
+            </div>
+
+            <!-- Bank Account Info -->
+            <div class="payment-modal-bank-row">
+                <div class="payment-modal-bank-item">
+                    <div class="payment-modal-bank-label">Ngân hàng</div>
+                    <div class="payment-modal-bank-val">MB Bank</div>
+                </div>
+                <div class="payment-modal-bank-item">
+                    <div class="payment-modal-bank-label">Số tài khoản</div>
+                    <div class="payment-modal-bank-val">30802040599999</div>
+                </div>
+                <div class="payment-modal-bank-item">
+                    <div class="payment-modal-bank-label">Chủ tài khoản</div>
+                    <div class="payment-modal-bank-val">TRAN ANH DUC</div>
+                </div>
+            </div>
+
+            <!-- Note -->
+            <div class="payment-modal-note">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Mở app ngân hàng → Quét QR → Kiểm tra thông tin → Xác nhận thanh toán</span>
+            </div>
+        </div>
+    </div>
+</div>

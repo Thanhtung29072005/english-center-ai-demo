@@ -1,0 +1,117 @@
+<div class="enroll-page-wrapper">
+
+    <!-- ── Page Header ── -->
+    <div class="enroll-page-header mb-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+                <h4 class="enroll-page-title mb-1">
+                    <span class="enroll-title-icon"><i class="fa-solid fa-user-check"></i></span>
+                    Duyệt Đăng Ký Học
+                </h4>
+                <p class="enroll-page-sub mb-0">Quản lý và xét duyệt các đơn đăng ký học từ phụ huynh</p>
+            </div>
+            <button class="btn enroll-btn-refresh" id="btnRefreshEnrollments">
+                <i class="fa-solid fa-rotate-right me-2"></i>Làm mới
+            </button>
+        </div>
+    </div>
+
+    <!-- ── Summary Stats ── -->
+    <div class="row g-3 mb-4" id="enrollmentStatCards">
+        <div class="col-6 col-md-3">
+            <div class="enroll-stat-card enroll-stat-pending">
+                <div class="enroll-stat-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="enroll-stat-info">
+                    <div class="enroll-stat-num" id="statEnrollPending">—</div>
+                    <div class="enroll-stat-label">Chờ duyệt</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="enroll-stat-card enroll-stat-approved">
+                <div class="enroll-stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="enroll-stat-info">
+                    <div class="enroll-stat-num" id="statEnrollApproved">—</div>
+                    <div class="enroll-stat-label">Đã duyệt</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="enroll-stat-card enroll-stat-rejected">
+                <div class="enroll-stat-icon"><i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="enroll-stat-info">
+                    <div class="enroll-stat-num" id="statEnrollRejected">—</div>
+                    <div class="enroll-stat-label">Đã từ chối</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="enroll-stat-card enroll-stat-total">
+                <div class="enroll-stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="enroll-stat-info">
+                    <div class="enroll-stat-num" id="statEnrollTotal">—</div>
+                    <div class="enroll-stat-label">Tổng đơn</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Filter Bar ── -->
+    <div class="enroll-filter-bar mb-4">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="enroll-filter-label"><i class="fa-solid fa-filter me-1"></i>Lọc trạng thái:</span>
+            <div class="enroll-status-tabs" id="enrollStatusTabs">
+                <button class="enroll-tab active" data-value="PENDING">
+                    <i class="fa-regular fa-clock me-1"></i>Chờ duyệt
+                </button>
+                <button class="enroll-tab" data-value="APPROVED">
+                    <i class="fa-solid fa-check me-1"></i>Đã duyệt
+                </button>
+                <button class="enroll-tab" data-value="REJECTED">
+                    <i class="fa-solid fa-xmark me-1"></i>Từ chối
+                </button>
+                <button class="enroll-tab" data-value="ALL">
+                    <i class="fa-solid fa-list me-1"></i>Tất cả
+                </button>
+            </div>
+            <!-- Hidden select to maintain JS compatibility -->
+            <select id="enrollmentStatusFilter" style="display:none;">
+                <option value="PENDING" selected>Đang chờ duyệt</option>
+                <option value="APPROVED">Đã duyệt</option>
+                <option value="REJECTED">Đã từ chối</option>
+                <option value="ALL">Tất cả</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ── Main Card / Table ── -->
+    <div class="enroll-main-card">
+        <div class="table-responsive">
+            <table class="table enroll-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Mã đơn</th>
+                        <th>Học sinh</th>
+                        <th>Lớp đăng ký</th>
+                        <th>Chi nhánh</th>
+                        <th>Phụ huynh</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày gửi</th>
+                        <th class="text-end pe-4">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="enrollmentTableBody">
+                    <tr>
+                        <td colspan="9" class="text-center py-5">
+                            <div class="enroll-loading-state">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                Đang tải dữ liệu...
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

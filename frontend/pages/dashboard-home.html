@@ -1,0 +1,105 @@
+<div class="content dashboard-home-content">
+    <div id="role-dashboard-root"></div>
+
+    <div id="admin-dashboard-content" class="admin-dashboard-modern">
+        <section class="admin-hero">
+            <div class="admin-hero-copy">
+                <span class="admin-hero-badge"><i class="fa-solid fa-chart-pie"></i> Trung tâm điều hành</span>
+                <h2>Dashboard quản trị</h2>
+                <p>Tổng quan nhanh về chi nhánh, lớp học, học sinh, giáo viên và hoạt động đào tạo trong hệ thống.</p>
+                <div class="admin-hero-meta">
+                    <span><i class="fa-regular fa-calendar"></i> <b id="admin-dashboard-date">Hôm nay</b></span>
+                    <span><i class="fa-solid fa-database"></i> Dữ liệu cập nhật</span>
+                </div>
+            </div>
+            <div class="admin-hero-card">
+                <span>Vận hành hệ thống</span>
+                <strong id="stat-lesson-month">0</strong>
+                <p>Buổi học tháng này</p>
+                <div class="admin-hero-progress"><i></i></div>
+            </div>
+        </section>
+
+        <section class="admin-section">
+            <div class="admin-section-head">
+                <div>
+                    <span>Thao tác nhanh</span>
+                    <h5>Tạo dữ liệu mới</h5>
+                </div>
+            </div>
+            <div class="admin-action-grid option">
+                <button class="admin-action-card" id="btn-quick-create-class">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Lớp học</span>
+                    <small>Tạo lớp mới</small>
+                </button>
+                <button class="admin-action-card" id="btn-quick-create-student">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Học sinh</span>
+                    <small>Thêm học sinh</small>
+                </button>
+                <button class="admin-action-card" id="btn-quick-create-lesson">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Buổi học</span>
+                    <small>Lên lịch học</small>
+                </button>
+                <button class="admin-action-card" id="btn-quick-create-exam">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>Bài kiểm tra</span>
+                    <small>Tạo bài kiểm tra</small>
+                </button>
+            </div>
+        </section>
+
+        <section class="admin-stat-grid thongke">
+            <div class="admin-stat-card blue">
+                <div><p>Chi nhánh</p><h3 id="stat-branch">0</h3><span>Tổng cơ sở</span></div>
+                <i class="fa-solid fa-building"></i>
+            </div>
+            <div class="admin-stat-card green">
+                <div><p>Lớp học</p><h3 id="stat-class">0</h3><span>Lớp đang quản lý</span></div>
+                <i class="fa-solid fa-cube"></i>
+            </div>
+            <div class="admin-stat-card orange">
+                <div><p>Học sinh</p><h3 id="stat-student">0</h3><span>Hồ sơ học viên</span></div>
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="admin-stat-card purple">
+                <div><p>Giáo viên</p><h3 id="stat-teacher">0</h3><span>Nhân sự giảng dạy</span></div>
+                <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div class="admin-stat-card indigo">
+                <div><p>Tổng bài kiểm tra</p><h3 id="stat-exam-total">0</h3><span>Đã tạo trong hệ thống</span></div>
+                <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <div class="admin-stat-card teal">
+                <div><p>Tổng buổi học</p><h3 id="stat-lesson">0</h3><span>Lịch học toàn hệ thống</span></div>
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+        </section>
+
+        <section class="admin-main-grid">
+            <div class="admin-panel admin-chart-panel">
+                <div class="admin-panel-head">
+                    <div>
+                        <span>Biểu đồ tăng trưởng</span>
+                        <h5>Số lượng học sinh theo tháng</h5>
+                    </div>
+                    <b><i class="fa-solid fa-rotate"></i> Dữ liệu cập nhật</b>
+                </div>
+                <div class="admin-chart-wrap"><canvas id="studentMonthlyChart"></canvas></div>
+            </div>
+
+            <div class="admin-panel admin-chart-panel">
+                <div class="admin-panel-head">
+                    <div>
+                        <span>Phân bổ lớp học</span>
+                        <h5>Số lớp học theo chi nhánh</h5>
+                    </div>
+                    <b><i class="fa-solid fa-location-dot"></i> Chi nhánh</b>
+                </div>
+                <div class="admin-chart-wrap"><canvas id="classByBranchChart"></canvas></div>
+            </div>
+        </section>
+    </div>
+</div>

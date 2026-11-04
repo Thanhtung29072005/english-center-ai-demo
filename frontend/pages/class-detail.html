@@ -1,0 +1,254 @@
+<div class="content class-detail-page">
+    <button class="btn class-detail-back" id="class-detail-btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Quay lại</span>
+    </button>
+
+    <section class="class-detail-hero">
+        <div class="class-detail-hero-main">
+            <div class="class-detail-icon">
+                <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <div class="class-detail-heading">
+                <h2 id="class-detail-name">Đang tải...</h2>
+                <p>Chi nhánh: <span id="class-detail-branch">-</span></p>
+                <div class="class-detail-actions">
+                    <button class="btn class-detail-btn class-detail-btn-share" id="class-detail-btn-share">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Chia sẻ lớp học</span>
+                    </button>
+                    <button class="btn class-detail-btn class-detail-btn-outline" id="class-detail-btn-edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Sửa</span>
+                    </button>
+                    <button class="btn class-detail-btn class-detail-btn-danger" id="class-detail-btn-delete">
+                        <i class="fa-regular fa-trash-can"></i>
+                        <span>Xóa</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="class-detail-created">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Tạo ngày <span id="class-detail-created-date">-</span></span>
+        </div>
+    </section>
+
+    <section class="class-detail-section">
+        <h3><i class="fa-solid fa-chart-simple"></i>Thống kê</h3>
+        <div class="class-detail-stats">
+            <div class="class-detail-stat"><span>Buổi học</span><strong id="class-detail-lesson-count">0</strong></div>
+            <div class="class-detail-stat"><span>Bài kiểm tra</span><strong id="class-detail-exam-count">0</strong>
+            </div>
+            <div class="class-detail-stat"><span>Học sinh</span><strong id="class-detail-student-count">0</strong></div>
+            <div class="class-detail-stat"><span>Giáo viên</span><strong id="class-detail-teacher-count">0</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="class-detail-panel">
+        <div class="class-detail-section-head">
+            <h3><i class="fa-solid fa-chalkboard-user"></i>Giáo viên (<span
+                    id="class-detail-teacher-title-count">0</span>)</h3>
+            <button class="btn class-detail-btn class-detail-btn-outline" id="class-detail-btn-assign-teacher">Gán giáo
+                viên</button>
+        </div>
+        <div class="class-detail-grid class-detail-teacher-grid" id="class-detail-teacher-list"></div>
+    </section>
+
+    <section class="class-detail-panel">
+        <div class="class-detail-section-head">
+            <h3><i class="fa-solid fa-users"></i>Học sinh (<span id="class-detail-student-title-count">0</span>)</h3>
+            <div class="class-detail-head-actions">
+                <button class="btn class-detail-btn class-detail-btn-outline" id="class-detail-btn-view-students">Xem
+                    tất cả</button>
+                <button class="btn class-detail-btn class-detail-btn-primary" id="class-detail-btn-add-student">Thêm học
+                    sinh</button>
+            </div>
+        </div>
+        <div class="class-detail-grid" id="class-detail-student-list"></div>
+    </section>
+
+    <section class="class-detail-panel">
+        <div class="class-detail-section-head">
+            <h3><i class="fa-solid fa-book-open-reader"></i>Buổi học (<span
+                    id="class-detail-lesson-title-count">0</span>)
+            </h3>
+            <div class="class-detail-head-actions">
+                <button class="btn class-detail-btn class-detail-btn-primary" id="class-detail-btn-add-lesson">Thêm buổi
+                    học</button>
+                <button class="btn class-detail-btn class-detail-btn-outline" id="class-detail-btn-view-lessons">Xem tất
+                    cả</button>
+            </div>
+        </div>
+        <div class="class-detail-grid" id="class-detail-lesson-list"></div>
+    </section>
+
+    <section class="class-detail-panel">
+        <div class="class-detail-section-head">
+            <h3><i class="fa-solid fa-cube"></i>Bài kiểm tra (<span id="class-detail-exam-title-count">0</span>)</h3>
+            <div class="class-detail-head-actions">
+                <button class="btn class-detail-btn class-detail-btn-primary" id="class-detail-btn-add-exam">Thêm bài
+                    kiểm tra</button>
+                <button class="btn class-detail-btn class-detail-btn-outline" id="class-detail-btn-view-exams">Xem tất
+                    cả</button>
+            </div>
+        </div>
+        <div class="class-detail-grid" id="class-detail-exam-list"></div>
+    </section>
+</div>
+
+<!-- Modal Gán giáo viên vào lớp -->
+<div class="modal fade" id="assignTeacherModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 18px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-chalkboard-user me-2" style="color: #7B4BEF;"></i>Gán giáo viên vào lớp
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+                    <div class="text-muted" style="font-size: 14px;">
+                        Chỉ hiển thị giáo viên thuộc chi nhánh của lớp học này.
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input id="assign-teacher-search" type="text" class="form-control" placeholder="Tìm giáo viên..."
+                            style="min-width: 240px; border-radius: 10px; border-color: #d8def0;">
+                        <button class="btn btn-outline-secondary" id="assign-teacher-clear" type="button"
+                            style="border-radius: 10px;">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="assign-teacher-list" class="assign-teacher-list"></div>
+                <div class="mt-3 text-muted" id="assign-teacher-empty" style="font-size: 14px; display: none;">
+                    Không có giáo viên phù hợp.
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <span class="me-auto text-muted" style="font-size: 14px;">Đã chọn: <strong
+                        id="assign-teacher-count">0</strong></span>
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitAssignTeachers" class="btn text-white px-4 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    Gán vào lớp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Gán học sinh vào lớp -->
+<div class="modal fade" id="assignStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 18px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-users me-2" style="color: #7B4BEF;"></i>Thêm học sinh vào lớp
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+                    <div class="text-muted" style="font-size: 14px;">
+                        Chọn học sinh có sẵn trong hệ thống để thêm vào lớp này.
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input id="assign-student-search" type="text" class="form-control" placeholder="Tìm học sinh..."
+                            style="min-width: 240px; border-radius: 10px; border-color: #d8def0;">
+                        <button class="btn btn-outline-secondary" id="assign-student-clear" type="button"
+                            style="border-radius: 10px;">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="assign-student-list" class="assign-student-list"></div>
+                <div class="mt-3 text-muted" id="assign-student-empty" style="font-size: 14px; display: none;">
+                    Không có học sinh phù hợp.
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <span class="me-auto text-muted" style="font-size: 14px;">Đã chọn: <strong
+                        id="assign-student-count">0</strong></span>
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitAssignStudents" class="btn text-white px-4 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    Gán vào lớp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xác nhận Xóa lớp học -->
+<div class="modal fade" id="deleteClassModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-body text-center p-4">
+                <div class="mb-3">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10"
+                        style="width: 64px; height: 64px;">
+                        <i class="fa-solid fa-triangle-exclamation fs-1 text-danger"></i>
+                    </div>
+                </div>
+                <h5 class="fw-bold mb-3" style="color: #1e293b;">Xóa lớp học?</h5>
+                <p id="deleteClassMessage" class="text-muted mb-4" style="font-size: 15px; line-height: 1.5;">
+                    Bạn có chắc chắn muốn xóa lớp học này?<br>Hành động này không thể hoàn tác.
+                </p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal"
+                        style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                    <button type="button" id="btnConfirmDelete" class="btn btn-danger px-4 py-2 shadow-sm"
+                        style="border-radius: 10px; font-weight: 500;">Xác nhận Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Sửa lớp học -->
+<div class="modal fade" id="editClassModal" tabindex="-1" aria-labelledby="editClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" id="editClassModalLabel" style="color: #1e293b; font-size: 18px;">Sửa
+                    thông tin lớp học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="editClassForm">
+                    <input type="hidden" id="editClassId">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Chi nhánh <span
+                                class="text-danger">*</span></label>
+                        <select class="form-select shadow-sm" id="editClassBranch"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                            <option value="" disabled selected>Chọn chi nhánh</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Tên lớp học <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control shadow-sm" id="editClassName"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Level</label>
+                        <input type="text" class="form-control shadow-sm" id="editClassLevel"
+                            placeholder="Ví dụ: Starter, Elementary, Intermediate..."
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal"
+                    style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm" id="btnSubmitEditClass"
+                    style="background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 10px; font-weight: 600; border: none;">Lưu
+                    thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>

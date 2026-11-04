@@ -1,0 +1,167 @@
+<div class="content edu-page edu-class-page">
+    <section class="edu-hero class-hero">
+        <div>
+            <span class="edu-eyebrow"><i class="fa-solid fa-layer-group"></i> Quản lý lớp học</span>
+            <h2>Lớp học</h2>
+            <p>Theo dõi lớp, level, chi nhánh và học phí trong một giao diện rõ ràng.</p>
+        </div>
+        <button class="btn edu-create-btn" data-bs-toggle="modal" data-bs-target="#createClassModal">
+            <i class="fa-solid fa-plus"></i> Tạo lớp học mới
+        </button>
+    </section>
+
+    <section class="edu-filter-card">
+        <div class="edu-section-title">
+            <span>Bộ lọc</span>
+            <h5>Tìm kiếm lớp học</h5>
+        </div>
+        <div class="row g-3 align-items-end">
+            <div class="col-lg-3 col-md-6">
+                <div class="edu-search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="filter-search" class="form-control" placeholder="Tên lớp, Level...">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="filter-branch" class="form-select edu-soft-input">
+                    <option value="">Tất cả chi nhánh</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="filter-level" class="form-select edu-soft-input">
+                    <option value="">Tất cả Level</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="filter-sort" class="form-select edu-soft-input">
+                    <option value="az">Tên lớp (A-Z)</option>
+                    <option value="za">Tên lớp (Z-A)</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="filter-page-size" class="form-select edu-soft-input">
+                    <option value="6">6 mục/trang</option>
+                    <option value="12" selected>12 mục/trang</option>
+                    <option value="24">24 mục/trang</option>
+                    <option value="9999">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-lg-1 col-md-6">
+                <button id="btn-reset-filter" class="btn edu-reset-btn w-100" title="Đặt lại">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="edu-list-toolbar">
+        <span id="class-count-text">Đang tải...</span>
+        <div id="pagination-controls" class="d-flex align-items-center gap-2"></div>
+    </section>
+
+    <div class="row edu-grid" id="class-list-container"></div>
+</div>
+
+<!-- Modal Xác nhận Xóa lớp học -->
+<div class="modal fade" id="deleteClassModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-body text-center p-4">
+                <div class="mb-3">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10" style="width: 64px; height: 64px;">
+                        <i class="fa-solid fa-triangle-exclamation fs-1 text-danger"></i>
+                    </div>
+                </div>
+                <h5 class="fw-bold mb-3" style="color: #1e293b;">Xóa lớp học?</h5>
+                <p id="deleteClassMessage" class="text-muted mb-4" style="font-size: 15px; line-height: 1.5;">
+                    Bạn có chắc chắn muốn xóa lớp học này?<br>Hành động này không thể hoàn tác.
+                </p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal" style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                    <button type="button" id="btnConfirmDelete" class="btn btn-danger px-4 py-2 shadow-sm" style="border-radius: 10px; font-weight: 500;">Xác nhận Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Sửa lớp học -->
+<div class="modal fade" id="editClassModal" tabindex="-1" aria-labelledby="editClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" id="editClassModalLabel" style="color: #1e293b; font-size: 18px;">Sửa thông tin lớp học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="editClassForm">
+                    <input type="hidden" id="editClassId">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Chi nhánh <span class="text-danger">*</span></label>
+                        <select class="form-select shadow-sm" id="editClassBranch" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                            <option value="" disabled selected>Chọn chi nhánh</option>
+                            <!-- Options sẽ được đổ bằng JS -->
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Tên lớp học <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control shadow-sm" id="editClassName" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Level</label>
+                        <input type="text" class="form-control shadow-sm" id="editClassLevel" placeholder="Ví dụ: Starter, Elementary, Intermediate..." style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Học phí (VND)</label>
+                        <input type="number" class="form-control shadow-sm" id="editClassPrice" placeholder="Ví dụ: 1500000" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal" style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm" id="btnSubmitEditClass" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 10px; font-weight: 600; border: none;">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tạo lớp học mới -->
+<div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" id="createClassModalLabel" style="color: #1e293b; font-size: 18px;">Tạo lớp học mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="createClassForm">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Chi nhánh <span class="text-danger">*</span></label>
+                        <select class="form-select shadow-sm" id="newClassBranch" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                            <option value="" disabled selected>Chọn chi nhánh</option>
+                            <!-- Options sẽ được đổ bằng JS -->
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Tên lớp học <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control shadow-sm" id="newClassName" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;" placeholder="Nhập tên lớp học...">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Level</label>
+                        <input type="text" class="form-control shadow-sm" id="newClassLevel" placeholder="Ví dụ: Starter, Elementary, Intermediate..." style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">Học phí (VND)</label>
+                        <input type="number" class="form-control shadow-sm" id="newClassPrice" placeholder="Ví dụ: 1500000" style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal" style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm btn-create-class" id="btnSubmitCreateClass" style="border-radius: 10px; font-weight: 600;">Tạo lớp học</button>
+            </div>
+        </div>
+    </div>
+</div>

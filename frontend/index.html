@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <title>Hệ thống quản lí đào tạo</title>
+  <link rel="stylesheet" href="./src/base.css">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="box">
+            <a href="#">
+              <img src="https://templatemo.com/templates/templatemo_535_softy_pinko/assets/images/logo.png" alt="Logo">
+            </a>
+            <ul class="danhsach" id="nav-actions">
+              <li class="item guest-only">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng nhập</a>
+              </li>
+              <li class="item guest-only">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#registerAccountModal" class="mot"
+                  style="background:#ff589e; color:#fff; border-radius: 20px; padding: 8px 20px;">Đăng ký</a>
+              </li>
+              <li class="item auth-only" style="display:none; align-items:center;">
+                <span class="text-muted" style="line-height: 40px; margin-right: 15px; font-weight: 500;">Xin chào, <b
+                    id="nav-username" style="color:#ff589e;"></b></span>
+              </li>
+              <li class="item auth-only" style="display:none;">
+                <a href="/dashboard.html" class="mot"
+                  style="background:#8261ee; color:#fff; border-radius: 20px; padding: 8px 20px;">Vào Dashboard</a>
+              </li>
+              <li class="item auth-only" style="display:none;">
+                <a href="#" id="nav-logout-btn">Đăng xuất</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="section1 home-hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="hero-copy">
+            <span class="hero-badge"><i class="fa-solid fa-star"></i> Trung tâm đào tạo hiện đại</span>
+            <h1>Chọn lớp phù hợp, theo dõi tiến bộ mỗi ngày</h1>
+            <p>Phụ huynh đăng ký khóa học nhanh, học sinh học tập theo lộ trình rõ ràng, điểm số và nhận xét được cập
+              nhật trong dashboard.</p>
+            <div class="hero-actions">
+              <button class="hero-primary"
+                onclick="document.getElementById('coursesSection').scrollIntoView({behavior: 'smooth'})">
+                Xem khóa học <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              <a class="hero-secondary" href="#benefitsSection">Vì sao chọn chúng tôi</a>
+            </div>
+            <div class="hero-stats">
+              <div><strong>3 bước</strong><span>Đăng ký dễ dàng</span></div>
+              <div><strong>24/7</strong><span>Theo dõi tiến độ</span></div>
+              <div><strong>100%</strong><span>Dữ liệu cập nhật</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-preview-card">
+            <div class="preview-top">
+              <div>
+                <span>Dashboard học tập</span>
+                <h4>Tiến độ tuần này</h4>
+              </div>
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="preview-score">
+              <span>Số lớp học</span>
+              <strong class="solophoc">8.7</strong>
+            </div>
+            <div class="preview-list">
+              <div><i class="fa-solid fa-calendar-check"></i><span>Lịch học rõ ràng</span><b>4 buổi</b></div>
+              <div><i class="fa-solid fa-clipboard-list"></i><span>Bài kiểm tra</span><b>Cập nhật</b></div>
+              <div><i class="fa-solid fa-comments"></i><span>Nhận xét giáo viên</span><b>Mới</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits-section" id="benefitsSection">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="benefit-card"><i class="fa-solid fa-user-check"></i>
+            <h5>Giáo viên theo sát</h5>
+            <p>Nhận xét, điểm số, lịch học được cập nhật rõ ràng.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="benefit-card"><i class="fa-solid fa-chart-simple"></i>
+            <h5>Phụ huynh dễ theo dõi</h5>
+            <p>Xem tiến độ học tập, kết quả kiểm tra của học sinh.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="benefit-card"><i class="fa-solid fa-route"></i>
+            <h5>Lộ trình rõ ràng</h5>
+            <p>Chọn lớp theo cấp độ, chi nhánh và nhu cầu học tập.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses-section" id="coursesSection">
+    <div class="container">
+      <div class="section-heading">
+        <span>Khóa học đang mở</span>
+        <h2>Chọn lớp phù hợp cho hành trình học tập</h2>
+        <p>Danh sách lớp được cập nhật từ hệ thống. Lọc nhanh theo cấp độ để tìm khóa phù hợp hơn.</p>
+      </div>
+      <div class="course-filter-bar" id="courseFilters">
+        <button class="course-filter-chip active" data-level="all">Tất cả</button>
+      </div>
+      <div class="row" id="coursesList">
+        <!-- Dữ liệu render từ JS sẽ vào đây -->
+      </div>
+    </div>
+  </section>
+
+  <section class="home-cta-section">
+    <div class="container">
+      <div class="home-cta-card">
+        <div>
+          <span>Bắt đầu hôm nay</span>
+          <h3>Sẵn sàng chọn khóa học phù hợp?</h3>
+          <p>Tạo tài khoản phụ huynh, chọn lớp, trung tâm sẽ xác nhận đăng ký.</p>
+        </div>
+        <button onclick="document.getElementById('coursesSection').scrollIntoView({behavior: 'smooth'})">Xem khóa
+          học</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div class="section2" style="background-color: #f8f9fa; padding: 80px 0; margin-top: 50px;">
+    <div class="container">
+      <div class="chinh">
+        <div class="row text-center">
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+            <div class="inner-box"
+              style="background: #fff; padding: 40px 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%;">
+              <a href="#">
+                <img
+                  src="https://templatemo.com/templates/templatemo_535_softy_pinko/assets/images/featured-item-01.png"
+                  alt="anh1" style="width: 80px; margin-bottom: 20px;">
+              </a>
+              <div class="title" style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 15px;">Chiến
+                Lược Hiện Đại</div>
+              <div class="phude" style="color: #777;">Chương trình học được thiết kế<br>chuẩn quốc tế, cập nhật liên
+                tục.</div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+            <div class="inner-box"
+              style="background: #fff; padding: 40px 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%;">
+              <a href="#">
+                <img
+                  src="https://templatemo.com/templates/templatemo_535_softy_pinko/assets/images/featured-item-01.png"
+                  alt="anh1" style="width: 80px; margin-bottom: 20px;">
+              </a>
+              <div class="title" style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 15px;">Môi
+                Trường Tốt Nhất</div>
+              <div class="phude" style="color: #777;">Cơ sở vật chất hiện đại,<br>giáo viên tận tâm và nhiệt huyết.
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+            <div class="inner-box"
+              style="background: #fff; padding: 40px 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); height: 100%;">
+              <a href="#">
+                <img
+                  src="https://templatemo.com/templates/templatemo_535_softy_pinko/assets/images/featured-item-01.png"
+                  alt="anh1" style="width: 80px; margin-bottom: 20px;">
+              </a>
+              <div class="title" style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 15px;">Phát
+                Triển Toàn Diện</div>
+              <div class="phude" style="color: #777;">Trang bị kỹ năng mềm,<br>giúp trẻ tự tin hội nhập.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Login Modal -->
+  <div class="modal fade custom-modal" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đăng Nhập</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="username" name="username" placeholder="Tên đăng nhập">
+            </div>
+            <div class="mb-4">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
+            </div>
+            <button type="button" class="btn btn-pink w-100" id="btnLogin">Đăng Nhập</button>
+            <div class="mt-3 text-center">
+              <a href="#" class="text-muted auth-link" data-bs-toggle="modal" data-bs-target="#registerAccountModal">Tạo
+                tài khoản phụ huynh mới</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Account Modal -->
+  <div class="modal fade custom-modal" id="registerAccountModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đăng Ký Tài Khoản</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="registerAccountForm">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="regUsername" placeholder="Tên đăng nhập *" required>
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" id="regPassword" placeholder="Mật khẩu *" required>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="regFullName" placeholder="Họ và tên phụ huynh *" required>
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="regPhone" placeholder="Số điện thoại *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" class="form-control" id="regEmail" placeholder="Email *">
+            </div>
+            <button type="button" class="btn btn-pink w-100" id="btnSubmitRegisterAccount">Đăng Ký</button>
+            <div class="mt-3 text-center">
+              <a href="#" class="text-muted auth-link" data-bs-toggle="modal" data-bs-target="#loginModal">Đã có tài
+                khoản? Đăng nhập ngay</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade custom-modal" id="enrollClassModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đăng Ký Khóa Học</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="enrollClassForm">
+            <input type="hidden" id="enrollClassId">
+            <input type="hidden" id="enrollBranchId">
+
+            <div class="mb-3">
+              <label class="form-label text-muted enroll-label">Khóa học đã chọn:</label>
+              <input type="text" class="form-control bg-light" id="enrollClassName" readonly disabled
+                style="font-weight: 600; color: #ff589e;">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" id="enrollStudentName" placeholder="Tên học sinh *" required>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label text-muted enroll-label">Ngày sinh của học sinh *</label>
+              <input type="date" class="form-control" id="enrollDob" required>
+            </div>
+
+            <button type="button" class="btn btn-green w-100" id="btnSubmitEnroll">Gửi Đơn Đăng Ký</button>
+            <div class="mt-3 text-center">
+              <a href="#" class="text-muted auth-link" data-bs-dismiss="modal">Hủy bỏ</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./src/main.js"></script>
+</body>
+
+</html>

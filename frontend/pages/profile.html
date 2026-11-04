@@ -1,0 +1,68 @@
+<div class="content" style="width: 100%; max-width: 920px; margin: 0 auto;">
+    <!-- Back button -->
+    <div class="mb-4">
+        <button id="profile-btn-back" class="btn px-4 py-2"
+            style="border: 1.5px solid var(--primary-color); color: var(--primary-color); border-radius: 10px; font-weight: 500; font-size: 14px; background: transparent; transition: all 0.2s;">
+            <i class="fa-solid fa-arrow-left me-2"></i>Quay lại
+        </button>
+    </div>
+
+    <!-- Title -->
+    <div class="mb-4">
+        <h2 class="fw-bold class-card-title mb-1">Thông tin cá nhân</h2>
+        <p class="text-muted mb-0" style="font-size: 14px;">Cập nhật thông tin tài khoản của bạn</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card stat-card-box p-4">
+        <!-- Avatar + name -->
+        <div class="d-flex align-items-center mb-4 pb-4" style="border-bottom: 1px solid #f0f0f5;">
+            <div class="me-3 d-flex align-items-center justify-content-center"
+                style="width: 64px; height: 64px; border-radius: 50%; background: rgba(123,75,239,0.12); color: #7B4BEF; flex-shrink: 0;">
+                <i class="fa-regular fa-user" style="font-size: 26px;"></i>
+            </div>
+            <div>
+                <div id="profile-display-name" class="fw-bold" style="font-size: 18px; color: #1a202c;">—</div>
+                <div id="profile-display-role" class="text-muted" style="font-size: 14px;">—</div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="profileForm">
+            <div class="mb-4">
+                <label class="form-label user-form-label">Tên đăng nhập</label>
+                <input type="text" id="profile-username" class="form-control user-form-input" readonly
+                    style="background: #f8f9fc; color: #6b7280; cursor: not-allowed;">
+                <div class="form-text" style="font-size: 12px; color: #8492a6;">Tên đăng nhập không thể thay đổi</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label user-form-label">Họ và tên <span class="text-muted fw-normal" style="font-size: 12px;">(tùy chọn)</span></label>
+                <input type="text" id="profile-fullname" class="form-control user-form-input" placeholder="Nhập họ và tên">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label user-form-label">Email <span class="text-muted fw-normal" style="font-size: 12px;">(tùy chọn)</span></label>
+                <input type="email" id="profile-email" class="form-control user-form-input" placeholder="email@example.com">
+                <div class="form-text" style="font-size: 12px; color: #8492a6;">Email là tùy chọn, có thể để trống</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label user-form-label">Số điện thoại <span class="text-muted fw-normal" style="font-size: 12px;">(tùy chọn)</span></label>
+                <input type="text" id="profile-phone" class="form-control user-form-input" placeholder="0xxx xxx xxx">
+            </div>
+
+            <!-- Action buttons -->
+            <div class="d-flex gap-3 flex-wrap">
+                <button type="button" id="profile-btn-save" class="btn text-white px-5 py-2 fw-semibold"
+                    style="background: linear-gradient(135deg, #f97316, #fb923c); border: none; border-radius: 10px; font-size: 15px;">
+                    Lưu thay đổi
+                </button>
+                <button type="button" id="profile-btn-change-pwd" class="btn px-5 py-2 fw-semibold"
+                    style="border: 1.5px solid var(--primary-color); color: var(--primary-color); border-radius: 10px; font-size: 15px; background: transparent; transition: all 0.2s;">
+                    Đổi mật khẩu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

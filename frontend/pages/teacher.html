@@ -1,0 +1,176 @@
+<div class="content">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold class-card-title">Giáo viên</h2>
+            <p class="text-muted mb-0">Quản lý giáo viên của trung tâm</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-create-modern" id="btn-open-create-teacher">
+                <i class="fa-solid fa-plus me-2"></i>Thêm giáo viên mới
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Card -->
+    <div class="card stat-card-box p-4 mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">TÌM KIẾM</label>
+                <input type="text" id="teacher-filter-search" class="form-control"
+                    placeholder="Tìm theo tên, email, chi nhánh, SĐT..."
+                    style="border-radius: 8px; border-color: #E0E5F2; font-size: 14px;">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">CHI NHÁNH</label>
+                <select id="teacher-filter-branch" class="form-select shadow-sm">
+                    <option value="">Xem tất cả</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">SẮP XẾP</label>
+                <select id="teacher-filter-sort" class="form-select shadow-sm">
+                    <option value="az">Tên giáo viên (A→Z)</option>
+                    <option value="za">Tên giáo viên (Z→A)</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">TRANG</label>
+                <select id="teacher-filter-page-size" class="form-select shadow-sm">
+                    <option value="12" selected>12 mục</option>
+                    <option value="24">24 mục</option>
+                    <option value="9999">Tất cả</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button id="teacher-btn-reset-filter" class="btn btn-reset-filter px-4 py-2">Đặt lại lọc</button>
+        </div>
+    </div>
+
+    <!-- Count -->
+    <div class="mb-3">
+        <span id="teacher-count-text" class="text-muted fw-medium class-count-text">Đang tải...</span>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="row g-4" id="teacher-list-container">
+        <div class="col-12 text-center py-5 text-muted">Đang tải dữ liệu...</div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <div id="teacher-pagination-controls" class="d-flex align-items-center gap-2"></div>
+    </div>
+</div>
+
+<!-- ===== MODAL TẠO GIÁO VIÊN MỚI ===== -->
+<div class="modal fade" id="createTeacherModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-chalkboard-user me-2" style="color: #7B4BEF;"></i>Thêm giáo viên mới
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="createTeacherForm">
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên giáo viên <span class="text-danger">*</span></label>
+                        <input type="text" id="newTeacherName" class="form-control user-form-input" placeholder="Nhập tên giáo viên">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Email</label>
+                        <input type="email" id="newTeacherEmail" class="form-control user-form-input" placeholder="email@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Số điện thoại</label>
+                        <input type="text" id="newTeacherPhone" class="form-control user-form-input" placeholder="0xxx xxx xxx">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Chi nhánh <span class="text-danger">*</span></label>
+                        <select id="newTeacherBranchId" class="form-select user-form-input">
+                            <option value="" disabled selected>Chọn chi nhánh</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitCreateTeacher" class="btn text-white px-5 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    <i class="fa-solid fa-plus me-1"></i>Tạo mới
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL SỬA GIÁO VIÊN ===== -->
+<div class="modal fade" id="editTeacherModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-pen-to-square me-2" style="color: #7B4BEF;"></i>Sửa thông tin giáo viên
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="editTeacherForm">
+                    <input type="hidden" id="editTeacherId">
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên giáo viên <span class="text-danger">*</span></label>
+                        <input type="text" id="editTeacherName" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Email</label>
+                        <input type="email" id="editTeacherEmail" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Số điện thoại</label>
+                        <input type="text" id="editTeacherPhone" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Chi nhánh <span class="text-danger">*</span></label>
+                        <select id="editTeacherBranchId" class="form-select user-form-input">
+                            <option value="" disabled>Chọn chi nhánh</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitEditTeacher" class="btn text-white px-5 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    <i class="fa-solid fa-check me-1"></i>Lưu thay đổi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL XÁC NHẬN XÓA ===== -->
+<div class="modal fade" id="deleteTeacherModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+        <div class="modal-content" style="border-radius: 14px; border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c;">
+                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Xóa giáo viên
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px;">
+                <p id="deleteTeacherMessage" class="mb-0" style="color: #4a5568; font-size: 15px; line-height: 1.6;">
+                    Bạn có chắc chắn muốn xóa giáo viên này?
+                </p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnConfirmDeleteTeacher" class="btn text-white px-4"
+                    style="border-radius: 8px; background: #e53e3e; font-weight: 500;">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>

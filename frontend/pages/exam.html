@@ -1,0 +1,267 @@
+<div class="content edu-page edu-exam-page">
+    <section class="edu-hero exam-hero">
+        <div>
+            <span class="edu-eyebrow"><i class="fa-solid fa-file-signature"></i> Quản lý bài kiểm tra</span>
+            <h2>Bài kiểm tra</h2>
+            <p>Tạo đề, theo dõi lịch kiểm tra, giáo viên phụ trách và kết quả học sinh.</p>
+        </div>
+        <button class="btn edu-create-btn" data-bs-toggle="modal" data-bs-target="#createExamModal">
+            <i class="fa-solid fa-plus"></i> Tạo bài kiểm tra mới
+        </button>
+    </section>
+
+    <section class="edu-filter-card exam-filter-modern">
+        <div class="edu-section-title">
+            <span>Bộ lọc</span>
+            <h5>Tìm kiếm bài kiểm tra</h5>
+        </div>
+        <div class="row g-3 align-items-end">
+            <div class="col-lg-3 col-md-6">
+                <label class="edu-label">Lớp học</label>
+                <select id="exam-filter-class" class="form-select edu-soft-input">
+                    <option value="">-- Tất cả lớp --</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="edu-label">Tìm kiếm</label>
+                <div class="edu-search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="exam-filter-search" class="form-control" placeholder="Tên lớp, loại bài kiểm tra...">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Giáo viên</label>
+                <select id="exam-filter-teacher" class="form-select edu-soft-input">
+                    <option value="">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Loại</label>
+                <select id="exam-filter-type" class="form-select edu-soft-input">
+                    <option value="">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Sắp xếp</label>
+                <select id="exam-filter-sort" class="form-select edu-soft-input">
+                    <option value="newest">Ngày kiểm tra (mới nhất)</option>
+                    <option value="oldest">Ngày kiểm tra (cũ nhất)</option>
+                    <option value="az">Tên lớp (A-Z)</option>
+                    <option value="za">Tên lớp (Z-A)</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Từ ngày</label>
+                <input type="date" id="exam-filter-date-from" class="form-control edu-soft-input">
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Đến ngày</label>
+                <input type="date" id="exam-filter-date-to" class="form-control edu-soft-input">
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <label class="edu-label">Số mục / trang</label>
+                <select id="exam-filter-page-size" class="form-select edu-soft-input">
+                    <option value="6">6 mục/trang</option>
+                    <option value="12" selected>12 mục/trang</option>
+                    <option value="24">24 mục/trang</option>
+                    <option value="9999">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <button id="exam-btn-reset-filter" class="btn edu-reset-btn w-100">
+                    <i class="fa-solid fa-rotate-right"></i> Đặt lại
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="edu-list-toolbar">
+        <span id="exam-count-text">Đang tải...</span>
+        <div id="exam-pagination-controls" class="d-flex align-items-center gap-2"></div>
+    </section>
+
+    <div class="row edu-grid" id="exam-list-container"></div>
+</div>
+
+<!-- ===================== MODAL XÁC NHẬN XÓA ===================== -->
+<div class="modal fade" id="deleteExamModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 20px 24px 16px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Xóa bài kiểm tra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px;">
+                <p id="deleteExamMessage" class="mb-0" style="color: #4a5568; font-size: 15px; line-height: 1.6;">
+                    Bạn có chắc chắn muốn xóa bài kiểm tra này?<br>Hành động này không thể hoàn tác.
+                </p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnConfirmDeleteExam" class="btn text-white px-4 py-2"
+                    style="border-radius: 8px; background: #e53e3e; font-weight: 500;">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== MODAL SỬA BÀI KIỂM TRA ===================== -->
+<div class="modal fade" id="editExamModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 16px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Sửa bài kiểm tra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="editExamForm">
+                    <input type="hidden" id="editExamId">
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Lớp học <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editExamClassId" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                            <option value="" disabled selected>Chọn lớp học</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Giáo viên <span class="text-danger">*</span></label>
+                        <select class="form-control" id="editExamTeacherId" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                            <option value="" disabled selected>Chọn giáo viên</option>
+                        </select>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Loại bài kiểm tra <span class="text-danger">*</span></label>
+                            <select class="form-control" id="editExamType" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                                <option value="" disabled>Chọn loại</option>
+                                <option value="READING_WRITING">Reading & Writing</option>
+                                <option value="LISTENING">Listening</option>
+                                <option value="SPEAKING">Speaking</option>
+                                <option value="Giữa kỳ">Giữa kỳ</option>
+                                <option value="Cuối kỳ">Cuối kỳ</option>
+                                <option value="Kiểm tra thường xuyên">Kiểm tra thường xuyên</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Trạng thái</label>
+                            <select class="form-control" id="editExamStatus" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                                <option value="DRAFT">DRAFT</option>
+                                <option value="PUBLISHED">PUBLISHED</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Tiêu đề <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="editExamTitle" placeholder="Reading Mini Test 1" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Thời lượng (phút) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="editExamDuration" min="1" placeholder="30" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Ngày kiểm tra <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="editExamDate" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Bắt đầu</label>
+                            <input type="datetime-local" class="form-control" id="editExamStartTime" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Kết thúc</label>
+                            <input type="datetime-local" class="form-control" id="editExamEndTime" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Mô tả</label>
+                            <textarea class="form-control" id="editExamDescription" rows="3" placeholder="Bài trắc nghiệm" style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2" id="btnSubmitEditExam"
+                    style="background-color: #f97316; border-radius: 8px; font-weight: 500;">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== MODAL TẠO BÀI KIỂM TRA MỚI ===================== -->
+<div class="modal fade" id="createExamModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header" style="border-bottom: 1px solid #E0E5F2; padding: 16px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">Tạo bài kiểm tra mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="createExamForm">
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Lớp học <span class="text-danger">*</span></label>
+                        <select class="form-control" id="newExamClassId" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                            <option value="" disabled selected>Chọn lớp học</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Giáo viên <span class="text-danger">*</span></label>
+                        <select class="form-control" id="newExamTeacherId" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                            <option value="" disabled selected>Chọn giáo viên</option>
+                        </select>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Loại bài kiểm tra <span class="text-danger">*</span></label>
+                            <select class="form-control" id="newExamType" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                                <option value="" disabled selected>Chọn loại</option>
+                                <option value="READING_WRITING">Reading & Writing</option>
+                                <option value="LISTENING">Listening</option>
+                                <option value="SPEAKING">Speaking</option>
+                                <option value="Giữa kỳ">Giữa kỳ</option>
+                                <option value="Cuối kỳ">Cuối kỳ</option>
+                                <option value="Kiểm tra thường xuyên">Kiểm tra thường xuyên</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Trạng thái</label>
+                            <select class="form-control" id="newExamStatus" style="border-radius: 8px; border-color: rgba(123, 75, 239, 0.4); height: 42px;">
+                                <option value="DRAFT" selected>DRAFT</option>
+                                <option value="PUBLISHED">PUBLISHED</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Tiêu đề <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="newExamTitle" placeholder="Reading Mini Test 1" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Thời lượng (phút) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="newExamDuration" min="1" placeholder="30" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Ngày kiểm tra <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="newExamDate" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Bắt đầu</label>
+                            <input type="datetime-local" class="form-control" id="newExamStartTime" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Kết thúc</label>
+                            <input type="datetime-local" class="form-control" id="newExamEndTime" style="border-radius: 8px; border-color: #E0E5F2; height: 42px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">Mô tả</label>
+                            <textarea class="form-control" id="newExamDescription" rows="3" placeholder="Bài trắc nghiệm" style="border-radius: 8px; border-color: #E0E5F2;"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" style="font-size: 14px; font-weight: 500; color: #4a5568;">PDF đề</label>
+                            <input type="file" class="form-control" id="newExamPdf" accept="application/pdf" style="border-radius: 8px; border-color: #E0E5F2;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px;">
+                <button type="button" class="btn btn-modal-cancel px-4 py-2" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2" id="btnSubmitCreateExam"
+                    style="background-color: #f97316; border-radius: 8px; font-weight: 500;">Tạo mới</button>
+            </div>
+        </div>
+    </div>
+</div>

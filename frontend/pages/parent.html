@@ -1,0 +1,164 @@
+<div class="content">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <div>
+            <h2 class="fw-bold" style="color: #1a202c;">Gán phụ huynh cho học sinh</h2>
+            <p class="text-muted mb-0">Quản lý và gán phụ huynh cho học sinh một cách tiện lợi</p>
+        </div>
+    </div>
+
+    <!-- Main 2-column layout -->
+    <div class="row g-4 mt-1">
+
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-8">
+
+            <!-- Card: Chọn lớp học -->
+            <div class="card stat-card-box p-4 mb-4">
+                <label class="form-label text-muted filter-label mb-2" style="font-size: 13px; font-weight: 600;">Chọn lớp học</label>
+                <select id="parent-select-class" class="form-select"
+                    style="border-radius: 10px; border-color: rgba(123,75,239,0.35); font-size: 15px;">
+                    <option value="" disabled selected>-- Chọn lớp học --</option>
+                </select>
+            </div>
+
+            <!-- Card: Danh sách học sinh -->
+            <div class="card stat-card-box p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0" style="color: #1a202c;">Danh sách học sinh</h5>
+                    <div class="input-group" style="max-width: 260px;">
+                        <span class="input-group-text bg-white border-end-0" style="border-color: #E0E5F2; border-radius: 8px 0 0 8px;">
+                            <i class="fa-solid fa-search text-muted" style="font-size: 13px;"></i>
+                        </span>
+                        <input type="text" id="parent-search-student" class="form-control border-start-0 ps-0"
+                            placeholder="Tìm kiếm học sinh..."
+                            style="border-color: #E0E5F2; border-radius: 0 8px 8px 0; box-shadow: none; font-size: 14px;">
+                    </div>
+                </div>
+
+                <!-- Student list -->
+                <div id="parent-student-list" style="max-height: 420px; overflow-y: auto;">
+                    <div class="text-center py-5 text-muted" style="font-size: 14px;">
+                        <i class="fa-solid fa-chalkboard-user mb-2" style="font-size: 28px; opacity: 0.3; display: block;"></i>
+                        Vui lòng chọn lớp học để xem danh sách học sinh.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-4">
+
+            <!-- Card: Chọn phụ huynh -->
+            <div class="card stat-card-box p-4 mb-4" style="position: sticky; top: 20px;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0" style="color: #1a202c;">Chọn phụ huynh</h5>
+                    <button id="parent-btn-create-parent" class="btn btn-sm"
+                        style="background: transparent; border: 1.5px solid #7B4BEF; color: #7B4BEF; border-radius: 8px; font-size: 13px; font-weight: 600; padding: 4px 12px;">
+                        <i class="fa-solid fa-plus me-1"></i>Tạo mới
+                    </button>
+                </div>
+                <select id="parent-select-parent" class="form-select mb-3"
+                    style="border-radius: 10px; border-color: rgba(123,75,239,0.35); font-size: 14px;">
+                    <option value="">-- Chọn phụ huynh --</option>
+                </select>
+
+                <!-- Info card of selected parent -->
+                <div id="parent-info-card" style="display: none;" class="rounded-3 p-3 mb-3"
+                    style="background: rgba(123,75,239,0.05); border: 1px solid rgba(123,75,239,0.15);">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-3 d-flex align-items-center justify-content-center"
+                            style="width:40px; height:40px; border-radius:10px; background:rgba(123,75,239,0.12); color:#7B4BEF;">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <div id="parent-info-name" class="fw-semibold" style="font-size: 14px; color: #1a202c;"></div>
+                            <div id="parent-info-email" class="text-muted" style="font-size: 12px;"></div>
+                        </div>
+                    </div>
+                    <div id="parent-info-phone" class="text-muted" style="font-size: 12px;"></div>
+                </div>
+
+                <!-- Action button -->
+                <button id="parent-btn-assign" class="btn w-100 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); color: white; border: none;
+                           border-radius: 10px; padding: 10px; font-size: 14px; transition: opacity 0.2s;">
+                    <i class="fa-solid fa-link me-2"></i>Lưu gán phụ huynh
+                </button>
+
+                <!-- Selected students info -->
+                <div id="parent-assign-info" class="mt-3 text-center text-muted" style="font-size: 13px; display: none;">
+                    Đã chọn <span id="parent-selected-count" class="fw-bold" style="color: #7B4BEF;">0</span> học sinh
+                </div>
+
+                <!-- Currently assigned students list -->
+                <div id="parent-current-assigned" class="mt-3" style="display: none;">
+                    <p class="text-muted mb-2" style="font-size: 12px; font-weight: 600; letter-spacing: 0.5px;">HỌC SINH ĐANG ĐƯỢC GÁN</p>
+                    <div id="parent-current-assigned-list"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== MODAL: Tạo phụ huynh mới ===== -->
+    <div class="modal fade" id="createParentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                    <h5 class="modal-title fw-bold" style="color: #1a202c;">
+                        <i class="fa-solid fa-user-plus me-2" style="color: #7B4BEF;"></i>Tạo phụ huynh mới
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 24px;">
+                    <form id="createParentForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Tên đăng nhập <span class="text-danger">*</span></label>
+                            <input type="text" id="newParentUsername" class="form-control"
+                                style="border-radius: 8px; border-color: #E0E5F2;" placeholder="Nhập tên đăng nhập">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Mật khẩu <span class="text-danger">*</span></label>
+                            <input type="password" id="newParentPassword" class="form-control"
+                                style="border-radius: 8px; border-color: #E0E5F2;" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Họ và tên</label>
+                            <input type="text" id="newParentFullName" class="form-control"
+                                style="border-radius: 8px; border-color: #E0E5F2;" placeholder="Họ và tên đầy đủ">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Email</label>
+                                <input type="email" id="newParentEmail" class="form-control"
+                                    style="border-radius: 8px; border-color: #E0E5F2;" placeholder="Email">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Số điện thoại</label>
+                                <input type="text" id="newParentPhone" class="form-control"
+                                    style="border-radius: 8px; border-color: #E0E5F2;" placeholder="SĐT">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-medium" style="font-size: 14px; color: #4a5568;">Chi nhánh <span class="text-danger">*</span></label>
+                            <select id="newParentBranchId" class="form-select shadow-sm">
+                                <option value="" disabled selected>Chọn chi nhánh</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px;">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                        style="border-radius: 8px; font-size: 14px;">Hủy</button>
+                    <button type="button" id="btnSubmitCreateParent" class="btn fw-semibold"
+                        style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); color: white; border: none; border-radius: 8px; font-size: 14px; padding: 8px 20px;">
+                        <i class="fa-solid fa-check me-1"></i>Tạo mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

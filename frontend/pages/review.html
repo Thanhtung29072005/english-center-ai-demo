@@ -1,0 +1,143 @@
+<div class="content review-page">
+    <section class="review-hero">
+        <div class="review-hero-copy">
+            <span class="review-eyebrow"><i class="fa-solid fa-star-half-stroke"></i> Nhận xét học tập</span>
+            <h2>Nhận xét Học sinh</h2>
+            <p>Ghi nhận điểm số, bài tập về nhà và phản hồi sau từng buổi học một cách nhanh chóng, rõ ràng.</p>
+        </div>
+        <div class="review-hero-card">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <span>Theo dõi tiến trình</span>
+            <strong id="review-count-hero">0</strong>
+            <small>học sinh trong danh sách</small>
+        </div>
+    </section>
+
+    <section class="review-control-card">
+        <div class="review-section-title">
+            <span>Thiết lập dữ liệu</span>
+            <h5>Chọn lớp và buổi học</h5>
+        </div>
+        <div class="row g-3 align-items-end">
+            <div class="col-lg-5">
+                <label class="review-label"><i class="fa-solid fa-layer-group"></i> Lớp học</label>
+                <select id="review-select-class" class="form-select review-select-lg">
+                    <option value="" disabled selected>-- Chọn lớp học --</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <label class="review-label green"><i class="fa-solid fa-calendar-check"></i> Buổi học</label>
+                <select id="review-select-lesson" class="form-select review-select-lg">
+                    <option value="" disabled selected>-- Chọn buổi học --</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="review-filter-card">
+        <div class="review-section-title compact">
+            <span>Bộ lọc</span>
+            <h5>Tìm kiếm nhận xét</h5>
+        </div>
+        <div class="row g-3">
+            <div class="col-lg-4 col-md-6">
+                <div class="review-search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="review-filter-search" class="form-control" placeholder="Tìm tên học sinh...">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="review-filter-student" class="form-select review-soft-input">
+                    <option value="">Tất cả học sinh</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <select id="review-filter-teacher" class="form-select review-soft-input">
+                    <option value="">Tất cả giáo viên</option>
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <input type="date" id="review-filter-from-date" class="form-control review-soft-input" title="Từ ngày">
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <input type="date" id="review-filter-to-date" class="form-control review-soft-input" title="Đến ngày">
+            </div>
+        </div>
+
+        <div class="review-filter-actions">
+            <select id="review-filter-sort" class="form-select review-soft-input">
+                <option value="az">Tên học sinh (A-Z)</option>
+                <option value="za">Tên học sinh (Z-A)</option>
+            </select>
+            <select id="review-filter-page-size" class="form-select review-soft-input">
+                <option value="10">10 mục/trang</option>
+                <option value="20" selected>20 mục/trang</option>
+                <option value="50">50 mục/trang</option>
+                <option value="9999">Tất cả</option>
+            </select>
+            <button id="review-btn-reset-filter" class="btn review-btn-light">
+                <i class="fa-solid fa-rotate-right"></i> Đặt lại
+            </button>
+            <button class="btn review-btn-danger">
+                <i class="fa-solid fa-trash-can"></i> Xóa (0)
+            </button>
+        </div>
+    </section>
+
+    <section class="review-lesson-card" id="review-lesson-info-card" style="display: none;">
+        <div class="review-lesson-main">
+            <div class="review-lesson-icon"><i class="fa-solid fa-book-open"></i></div>
+            <div>
+                <span>Thông tin buổi học</span>
+                <h4 id="review-info-class-name">-</h4>
+                <b id="review-info-level">-</b>
+            </div>
+        </div>
+        <div class="review-lesson-stats">
+            <div><i class="fa-solid fa-building text-primary"></i><span>Chi nhánh</span><strong id="review-info-branch">-</strong></div>
+            <div><i class="fa-regular fa-calendar-check text-success"></i><span>Ngày học</span><strong id="review-info-date">-</strong></div>
+            <div><i class="fa-solid fa-hashtag text-warning"></i><span>Số buổi</span><strong id="review-info-number">-</strong></div>
+            <div><i class="fa-solid fa-chalkboard-user text-danger"></i><span>Giáo viên</span><strong id="review-info-teacher">-</strong></div>
+        </div>
+    </section>
+
+    <section class="review-table-card">
+        <div class="review-table-head">
+            <div>
+                <span>Danh sách nhận xét</span>
+                <h5>Điểm số và phản hồi từng học sinh</h5>
+            </div>
+            <b id="review-count-text">Hiển thị 0 mục</b>
+        </div>
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle review-table">
+                <thead>
+                    <tr>
+                        <th class="text-center"><input class="form-check-input" type="checkbox" id="review-check-all"></th>
+                        <th>#</th>
+                        <th>Tên học sinh</th>
+                        <th class="text-center">Vocab</th>
+                        <th class="text-center">Điểm thi</th>
+                        <th class="text-center">BTVN</th>
+                        <th>Nhận xét chung</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="review-table-body">
+                    <tr>
+                        <td colspan="8" class="text-center py-5">
+                            <div class="review-empty-state">
+                                <i class="fa-solid fa-inbox"></i>
+                                <p>Vui lòng chọn lớp học và buổi học để xem danh sách.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="review-pagination-row">
+            <span></span>
+            <div id="review-pagination-controls" class="d-flex align-items-center gap-2"></div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,33 @@
+package com.webthuctapcoso.model;
+
+public class UpdateTeacherRequestDTO {
+	private String name;
+    private String email;
+    private String phone;
+    private Integer branchId;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public Integer getBranchId() {
+		return branchId;
+	}
+	public void setBranchId(Integer branchId) {
+		this.branchId = branchId;
+	}
+    
+}

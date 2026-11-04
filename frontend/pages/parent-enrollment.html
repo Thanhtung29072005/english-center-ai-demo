@@ -1,0 +1,119 @@
+<div class="parent-enroll-page-wrapper">
+    <!-- Page Header -->
+    <div class="parent-enroll-header">
+        <div class="parent-enroll-header-left">
+            <div class="parent-enroll-icon-wrapper">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <h4 class="parent-enroll-title">Khóa Học Đã Đăng Ký</h4>
+                <p class="parent-enroll-subtitle">Quản lý các khóa học mà con bạn đã đăng ký</p>
+            </div>
+        </div>
+        <button class="parent-enroll-refresh-btn" onclick="initParentEnrollmentPage()">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Làm mới</span>
+        </button>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="parent-enroll-stats-grid">
+        <div class="parent-enroll-stat-card parent-enroll-stat-pending">
+            <div class="parent-enroll-stat-icon">
+                <i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="parent-enroll-stat-content">
+                <div class="parent-enroll-stat-label">Chờ duyệt</div>
+                <div class="parent-enroll-stat-value" id="parentStatPending">0</div>
+            </div>
+        </div>
+
+        <div class="parent-enroll-stat-card parent-enroll-stat-approved">
+            <div class="parent-enroll-stat-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="parent-enroll-stat-content">
+                <div class="parent-enroll-stat-label">Đã duyệt</div>
+                <div class="parent-enroll-stat-value" id="parentStatApproved">0</div>
+            </div>
+        </div>
+
+        <div class="parent-enroll-stat-card parent-enroll-stat-rejected">
+            <div class="parent-enroll-stat-icon">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="parent-enroll-stat-content">
+                <div class="parent-enroll-stat-label">Từ chối</div>
+                <div class="parent-enroll-stat-value" id="parentStatRejected">0</div>
+            </div>
+        </div>
+
+        <div class="parent-enroll-stat-card parent-enroll-stat-total">
+            <div class="parent-enroll-stat-icon">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <div class="parent-enroll-stat-content">
+                <div class="parent-enroll-stat-label">Tổng đơn</div>
+                <div class="parent-enroll-stat-value" id="parentStatTotal">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="parent-enroll-filter-section">
+        <div class="parent-enroll-tabs" id="parentEnrollStatusTabs">
+            <button class="parent-enroll-tab active" data-status="ALL">
+                <i class="fa-solid fa-list"></i>
+                <span>Tất cả</span>
+            </button>
+            <button class="parent-enroll-tab" data-status="PENDING">
+                <i class="fa-regular fa-clock"></i>
+                <span>Chờ duyệt</span>
+            </button>
+            <button class="parent-enroll-tab" data-status="APPROVED">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Đã duyệt</span>
+            </button>
+            <button class="parent-enroll-tab" data-status="REJECTED">
+                <i class="fa-solid fa-circle-xmark"></i>
+                <span>Từ chối</span>
+            </button>
+        </div>
+        <select id="parentEnrollmentStatusFilter" style="display:none;">
+            <option value="ALL">Tất cả</option>
+            <option value="PENDING">Chờ duyệt</option>
+            <option value="APPROVED">Đã duyệt</option>
+            <option value="REJECTED">Từ chối</option>
+        </select>
+    </div>
+
+    <!-- Data Table -->
+    <div class="parent-enroll-table-card">
+        <div class="table-responsive">
+            <table class="parent-enroll-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Học sinh</th>
+                        <th>Lớp học</th>
+                        <th>Chi nhánh</th>
+                        <th>Học phí</th>
+                        <th>Tài khoản học sinh</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày gửi</th>
+                    </tr>
+                </thead>
+                <tbody id="parentEnrollmentTableBody">
+                    <tr>
+                        <td colspan="8">
+                            <div class="parent-enroll-loading-state">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                Đang tải dữ liệu...
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

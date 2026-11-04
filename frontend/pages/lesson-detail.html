@@ -1,0 +1,295 @@
+<div class="content lesson-detail-page">
+    <button class="btn lesson-detail-back" id="lesson-detail-btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Quay lại</span>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="lesson-detail-hero">
+        <div class="lesson-detail-hero-main">
+            <div class="lesson-detail-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <div class="lesson-detail-heading">
+                <h2 id="lesson-detail-name">Đang tải...</h2>
+                <div class="lesson-detail-meta">
+                    <span class="lesson-detail-meta-item">
+                        <i class="fa-solid fa-chalkboard"></i>
+                        <span id="lesson-detail-class">—</span>
+                    </span>
+                    <span class="lesson-detail-meta-item">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span id="lesson-detail-teacher">—</span>
+                    </span>
+                    <span class="lesson-detail-meta-item">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span id="lesson-detail-date">—</span>
+                    </span>
+                    <span class="lesson-detail-meta-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <span id="lesson-detail-time">—</span>
+                    </span>
+                </div>
+                <div class="lesson-detail-actions">
+                    <button class="btn lesson-detail-btn lesson-detail-btn-outline" id="lesson-detail-btn-edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Sửa</span>
+                    </button>
+                    <button class="btn lesson-detail-btn lesson-detail-btn-danger" id="lesson-detail-btn-delete">
+                        <i class="fa-regular fa-trash-can"></i>
+                        <span>Xóa</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Material Section -->
+    <section class="lesson-detail-panel">
+        <div class="lesson-detail-section-head">
+            <h3>
+                <i class="fa-solid fa-file-pdf"></i>
+                Tài liệu PDF
+            </h3>
+            <div class="d-flex gap-2 flex-wrap">
+                <input type="file" id="lesson-material-file" accept="application/pdf" hidden>
+                <button class="btn lesson-detail-btn lesson-detail-btn-primary" id="btn-upload-material">
+                    <i class="fa-solid fa-upload"></i>
+                    <span>Upload PDF</span>
+                </button>
+            </div>
+        </div>
+        <div class="lesson-detail-content" id="lesson-material-content">
+            <div class="lesson-detail-empty">
+                <i class="fa-solid fa-file-pdf"></i>
+                <p>Chưa có tài liệu PDF</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vocabulary Section -->
+    <section class="lesson-detail-panel">
+        <div class="lesson-detail-section-head">
+            <h3>
+                <i class="fa-solid fa-language"></i>
+                Từ vựng
+                <span class="lesson-detail-count" id="vocab-count">0</span>
+            </h3>
+            <button class="btn lesson-detail-btn lesson-detail-btn-primary" id="btn-add-vocab">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm từ vựng</span>
+            </button>
+        </div>
+        <div class="lesson-detail-content" id="vocabulary-list">
+            <div class="lesson-detail-empty">
+                <i class="fa-solid fa-book"></i>
+                <p>Chưa có từ vựng nào</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grammar Section -->
+    <section class="lesson-detail-panel">
+        <div class="lesson-detail-section-head">
+            <h3>
+                <i class="fa-solid fa-spell-check"></i>
+                Ngữ pháp
+                <span class="lesson-detail-count" id="grammar-count">0</span>
+            </h3>
+            <button class="btn lesson-detail-btn lesson-detail-btn-primary" id="btn-add-grammar">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm ngữ pháp</span>
+            </button>
+        </div>
+        <div class="lesson-detail-content" id="grammar-list">
+            <div class="lesson-detail-empty">
+                <i class="fa-solid fa-book-open"></i>
+                <p>Chưa có ngữ pháp nào</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Homework Section -->
+    <section class="lesson-detail-panel">
+        <div class="lesson-detail-section-head">
+            <h3>
+                <i class="fa-solid fa-clipboard-list"></i>
+                Bài tập về nhà
+                <span class="lesson-detail-count" id="homework-count">0</span>
+            </h3>
+            <button class="btn lesson-detail-btn lesson-detail-btn-primary" id="btn-add-homework">
+                <i class="fa-solid fa-plus"></i>
+                <span>Thêm bài tập</span>
+            </button>
+        </div>
+        <div class="lesson-detail-content" id="homework-list">
+            <div class="lesson-detail-empty">
+                <i class="fa-solid fa-tasks"></i>
+                <p>Chưa có bài tập nào</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal Add/Edit Vocabulary -->
+<div class="modal fade" id="vocabModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" style="color: #1e293b; font-size: 18px;">
+                    <i class="fa-solid fa-language me-2" style="color: #10b981;"></i>
+                    <span id="vocabModalTitle">Thêm từ vựng</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="vocabForm">
+                    <input type="hidden" id="vocabId">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Từ vựng <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control shadow-sm" id="vocabWord" required
+                            placeholder="Ví dụ: Hello"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Nghĩa <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control shadow-sm" id="vocabMeaning" required
+                            placeholder="Ví dụ: Xin chào"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Phiên âm
+                        </label>
+                        <input type="text" class="form-control shadow-sm" id="vocabPronunciation"
+                            placeholder="Ví dụ: /həˈloʊ/"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Ví dụ
+                        </label>
+                        <textarea class="form-control shadow-sm" id="vocabExample" rows="2"
+                            placeholder="Ví dụ: Hello, how are you?"
+                            style="border-radius: 10px; border-color: #cbd5e1;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal"
+                    style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm" id="btnSubmitVocab"
+                    style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; font-weight: 600; border: none;">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add/Edit Grammar -->
+<div class="modal fade" id="grammarModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" style="color: #1e293b; font-size: 18px;">
+                    <i class="fa-solid fa-spell-check me-2" style="color: #10b981;"></i>
+                    <span id="grammarModalTitle">Thêm ngữ pháp</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="grammarForm">
+                    <input type="hidden" id="grammarId">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Tiêu đề <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control shadow-sm" id="grammarTitle" required
+                            placeholder="Ví dụ: Present Simple Tense"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Nội dung <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control shadow-sm" id="grammarContent" required rows="4"
+                            placeholder="Giải thích ngữ pháp..."
+                            style="border-radius: 10px; border-color: #cbd5e1;"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Ví dụ
+                        </label>
+                        <textarea class="form-control shadow-sm" id="grammarExample" rows="2"
+                            placeholder="Ví dụ minh họa..."
+                            style="border-radius: 10px; border-color: #cbd5e1;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal"
+                    style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm" id="btnSubmitGrammar"
+                    style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; font-weight: 600; border: none;">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add/Edit Homework -->
+<div class="modal fade" id="homeworkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold" style="color: #1e293b; font-size: 18px;">
+                    <i class="fa-solid fa-clipboard-list me-2" style="color: #10b981;"></i>
+                    <span id="homeworkModalTitle">Thêm bài tập</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="homeworkForm">
+                    <input type="hidden" id="homeworkId">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Tiêu đề <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control shadow-sm" id="homeworkTitle" required
+                            placeholder="Ví dụ: Bài tập Unit 1"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Mô tả <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control shadow-sm" id="homeworkDescription" required rows="4"
+                            placeholder="Mô tả chi tiết bài tập..."
+                            style="border-radius: 10px; border-color: #cbd5e1;"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold text-secondary" style="font-size: 14px;">
+                            Hạn nộp
+                        </label>
+                        <input type="date" class="form-control shadow-sm" id="homeworkDueDate"
+                            style="border-radius: 10px; border-color: #cbd5e1; height: 42px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4 gap-2">
+                <button type="button" class="btn btn-light px-4 py-2 shadow-sm" data-bs-dismiss="modal"
+                    style="border-radius: 10px; font-weight: 500;">Hủy</button>
+                <button type="button" class="btn text-white px-4 py-2 shadow-sm" id="btnSubmitHomework"
+                    style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 10px; font-weight: 600; border: none;">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,207 @@
+<div class="content">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold class-card-title">Học sinh</h2>
+            <p class="text-muted mb-0">Quản lý học sinh của trung tâm</p>
+        </div>
+        <button class="btn btn-create-modern" id="btn-open-create-student">
+            <i class="fa-solid fa-plus me-2"></i>Thêm học sinh
+        </button>
+    </div>
+
+    <!-- Chọn lớp học -->
+    <div class="mb-3">
+        <label class="form-label text-muted filter-label mb-1" style="font-size: 13px; font-weight: 600;">Chọn lớp học</label>
+        <select id="student-filter-class" class="form-select"
+            style="max-width: 260px; border-radius: 10px; border-color: rgba(123,75,239,0.35);">
+            <option value="">-- Tất cả lớp --</option>
+        </select>
+    </div>
+
+    <!-- Filter Card -->
+    <div class="card stat-card-box p-4 mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">TÌM KIẾM</label>
+                <input type="text" id="student-filter-search" class="form-control"
+                    placeholder="Tìm theo tên, lớp, phụ huynh, SĐT..."
+                    style="border-radius: 8px; border-color: #E0E5F2; font-size: 14px;">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">CHI NHÁNH</label>
+                <select id="student-filter-branch" class="form-select shadow-sm">
+                    <option value="">Tất cả lớp</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">SẮP XẾP</label>
+                <select id="student-filter-sort" class="form-select shadow-sm">
+                    <option value="az">Tên học sinh (A→Z)</option>
+                    <option value="za">Tên học sinh (Z→A)</option>
+                    <option value="newest">Mới nhất</option>
+                    <option value="oldest">Cũ nhất</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label text-muted filter-label mb-1" style="font-size: 12px; font-weight: 600; letter-spacing: 0.4px;">TRANG</label>
+                <select id="student-filter-page-size" class="form-select shadow-sm">
+                    <option value="12" selected>12 mục</option>
+                    <option value="24">24 mục</option>
+                    <option value="9999">Tất cả</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button id="student-btn-reset-filter" class="btn btn-reset-filter px-4 py-2">
+                Đặt lại lọc
+            </button>
+        </div>
+    </div>
+
+    <!-- Count text -->
+    <div class="mb-3">
+        <span id="student-count-text" class="text-muted fw-medium class-count-text">Đang tải...</span>
+    </div>
+
+    <!-- Student Card Grid -->
+    <div class="row g-3" id="student-list-container">
+        <div class="col-12 text-center py-5 text-muted">Đang tải dữ liệu...</div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <div id="student-pagination-controls" class="d-flex align-items-center gap-2"></div>
+    </div>
+</div>
+
+<!-- ===== MODAL TẠO HỌC SINH MỚI ===== -->
+<div class="modal fade" id="createStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-user-graduate me-2" style="color: #7B4BEF;"></i>Thêm học sinh mới
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="createStudentForm">
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên học sinh <span class="text-danger">*</span></label>
+                        <input type="text" id="newStudentName" class="form-control user-form-input" placeholder="Nhập tên học sinh">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Ngày sinh</label>
+                        <input type="date" id="newStudentDob" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Lớp học <span class="text-danger">*</span></label>
+                        <select id="newStudentClassId" class="form-select user-form-input">
+                            <option value="" disabled selected>Chọn lớp học</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên phụ huynh</label>
+                        <input type="text" id="newStudentParentName" class="form-control user-form-input" placeholder="Tên phụ huynh">
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-6">
+                            <label class="form-label user-form-label">SĐT phụ huynh</label>
+                            <input type="text" id="newStudentParentPhone" class="form-control user-form-input" placeholder="Số điện thoại">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label user-form-label">Email phụ huynh</label>
+                            <input type="email" id="newStudentParentEmail" class="form-control user-form-input" placeholder="Email">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitCreateStudent" class="btn text-white px-5 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    <i class="fa-solid fa-plus me-1"></i>Tạo mới
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL SỬA HỌC SINH ===== -->
+<div class="modal fade" id="editStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
+        <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c; font-size: 18px;">
+                    <i class="fa-solid fa-pen-to-square me-2" style="color: #7B4BEF;"></i>Sửa thông tin học sinh
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 24px;">
+                <form id="editStudentForm">
+                    <input type="hidden" id="editStudentId">
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên học sinh <span class="text-danger">*</span></label>
+                        <input type="text" id="editStudentName" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Ngày sinh</label>
+                        <input type="date" id="editStudentDob" class="form-control user-form-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Lớp học <span class="text-danger">*</span></label>
+                        <select id="editStudentClassId" class="form-select user-form-input">
+                            <option value="" disabled>Chọn lớp học</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label user-form-label">Tên phụ huynh</label>
+                        <input type="text" id="editStudentParentName" class="form-control user-form-input">
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-6">
+                            <label class="form-label user-form-label">SĐT phụ huynh</label>
+                            <input type="text" id="editStudentParentPhone" class="form-control user-form-input">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label user-form-label">Email phụ huynh</label>
+                            <input type="email" id="editStudentParentEmail" class="form-control user-form-input">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #f0f0f5; padding: 16px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnSubmitEditStudent" class="btn text-white px-5 fw-semibold"
+                    style="background: linear-gradient(135deg, #7B4BEF, #9d73f5); border: none; border-radius: 8px;">
+                    <i class="fa-solid fa-check me-1"></i>Lưu thay đổi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL XÁC NHẬN XÓA ===== -->
+<div class="modal fade" id="deleteStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+        <div class="modal-content" style="border-radius: 14px; border: none; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+            <div class="modal-header" style="border-bottom: 1px solid #f0f0f5; padding: 20px 24px;">
+                <h5 class="modal-title fw-bold" style="color: #1a202c;">
+                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Xóa học sinh
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px 24px;">
+                <p id="deleteStudentMessage" class="mb-0" style="color: #4a5568; font-size: 15px; line-height: 1.6;">
+                    Bạn có chắc chắn muốn xóa học sinh này?
+                </p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding: 0 24px 24px; gap: 10px;">
+                <button type="button" class="btn btn-modal-cancel px-4" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="btnConfirmDeleteStudent" class="btn text-white px-4"
+                    style="border-radius: 8px; background: #e53e3e; font-weight: 500;">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>

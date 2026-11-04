@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QLDT</title>
+    <link rel="icon" href="./src/assets/6842464.jpg" type="image/png">
+    <!-- Use a modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./src/dashboard.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="left-header">
+            <a href="index.html" class="logo-brand">QLDT</a>
+        </div>
+        <div class="user" id="user-header-btn">
+            <div class="icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-info">
+                <div class="username" id="header-username">Admin</div>
+                <div class="role" id="header-role">Administrator</div>
+            </div>
+            <i class="fas fa-chevron-down" id="user-caret"
+                style="color:#8492a6; font-size:13px; transition: transform 0.25s ease;"></i>
+
+            <!-- Dropdown -->
+            <div class="user-header-dropdown" id="user-header-dropdown">
+                <div class="udd-item" id="btn-profile">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Thông tin cá nhân</span>
+                </div>
+                <div class="udd-item" id="btn-change-password">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Đổi mật khẩu</span>
+                </div>
+                <!-- <div class="udd-item" id="btn-settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Cài đặt</span>
+                </div> -->
+                <div class="udd-divider"></div>
+                <div class="udd-item udd-danger" id="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Đăng xuất</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section1 -->
+    <div class="dashboard-wrap">
+        <div class="sidebar">
+            <div class="nav-item active" data-page="dashboard-home">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" data-page="class">
+                <i class="fa-regular fa-address-book"></i>
+                <span>Lớp học</span>
+            </div>
+            <div class="nav-item" data-page="lesson">
+                <i class="fa-regular fa-clipboard"></i>
+                <span>Buổi học</span>
+            </div>
+            <div class="nav-item" data-page="review">
+                <i class="fa-regular fa-file-lines"></i>
+                <span>Nhận xét</span>
+            </div>
+            <div class="nav-item" data-page="exam">
+                <i class="fa-regular fa-file-lines"></i>
+                <span>Bài kiểm tra</span>
+            </div>
+
+            <div class="nav-item" data-page="parent-enrollment" id="nav-parent-enrollment" style="display: none;">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Khóa học đã đăng ký</span>
+            </div>
+
+            <div class="nav-item" data-page="payment" id="nav-payment" style="display: none;">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Thanh toán học phí</span>
+            </div>
+
+            <div class="nav-item has-dropdown" id="manage-dropdown-btn">
+                <i class="fa-solid fa-shapes"></i>
+                <span style="flex-grow: 1;">Quản lý</span>
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+            </div>
+            <div class="dropdown-container" id="manage-dropdown-content">
+                <div class="nav-item" data-page="enrollment-request">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>Duyệt học viên</span>
+                </div>
+                <div class="nav-item" data-page="user">
+                    <i class="fa-solid fa-user-group"></i>
+                    <span>Người dùng</span>
+                </div>
+                <div class="nav-item" data-page="parent">
+                    <i class="fa-solid fa-link"></i>
+                    <span>Gán phụ huynh</span>
+                </div>
+                <div class="nav-item" data-page="student">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Học sinh</span>
+                </div>
+                <div class="nav-item" data-page="branch">
+                    <i class="fa-regular fa-building"></i>
+                    <span>Chi nhánh</span>
+                </div>
+                <div class="nav-item" data-page="teacher">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span>Giáo viên</span>
+                </div>
+                <div class="nav-item" data-page="revenue" id="nav-revenue"
+                    style="background:linear-gradient(90deg,rgba(16,185,129,.08),transparent);border-left:3px solid #10b981;">
+                    <i class="fa-solid fa-chart-line" style="color:#10b981;"></i>
+                    <span style="color:#10b981;font-weight:600;">Lợi Nhuận</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div id="content-area"></div>
+        </div>
+    </div>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script to handle switching tabs -->
+    <script type="module" src="./src/dashboard.js"></script>
+</body>
+
+</html>
